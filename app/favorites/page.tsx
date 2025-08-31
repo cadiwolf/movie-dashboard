@@ -11,7 +11,7 @@ export default function FavoritesPage() {
 
   if (!isLoaded) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="text-center py-12">
           <p className="text-lg text-muted-foreground">
             Cargando favoritos...
@@ -23,7 +23,7 @@ export default function FavoritesPage() {
 
   if (favoritesCount === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 pt-24 pb-8">
         <div className="space-y-8">
           <div className="space-y-4">
             <h1 className="text-4xl font-bold tracking-tight">
@@ -54,7 +54,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pt-24 pb-8">
       <div className="space-y-8">
         {/* Header */}
         <div className="flex items-center justify-between">

@@ -17,7 +17,7 @@ export function AdvancedFilters({ genres }: AdvancedFiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   
-  const [isOpen, setIsOpen] = useState(false);
+  // Los filtros avanzados siempre están abiertos
   const [filters, setFilters] = useState({
     year: searchParams.get('year') || 'all',
     genre: searchParams.get('genre') || 'all',
@@ -70,7 +70,6 @@ export function AdvancedFilters({ genres }: AdvancedFiltersProps) {
     params.delete('page');
     
     router.push(`/search?${params.toString()}`);
-    setIsOpen(false);
   };
 
   const clearFilters = () => {
@@ -89,7 +88,6 @@ export function AdvancedFilters({ genres }: AdvancedFiltersProps) {
     });
     
     router.push(`/search?${params.toString()}`);
-    setIsOpen(false);
   };
 
   const hasActiveFilters = (filters.year && filters.year !== 'all') || 
@@ -99,166 +97,139 @@ export function AdvancedFilters({ genres }: AdvancedFiltersProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <Button
-          variant="outline"
-          onClick={() => setIsOpen(!isOpen)}
-          className="gap-2"
-        >
-          <Filter className="h-4 w-4" />
-          Filtros Avanzados
-          {hasActiveFilters && (
-            <Badge variant="secondary" className="ml-1">
-              {Object.values(filters).filter(Boolean).length}
-            </Badge>
-          )}
-        </Button>
-        
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearFilters}
-            className="gap-1"
-          >
-            <X className="h-4 w-4" />
-            Limpiar filtros
-          </Button>
-        )}
-      </div>
-
-      {isOpen && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Filtros de Búsqueda</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Año */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Año</label>
-                <Select
-                  value={filters.year}
-                  onValueChange={(value) => setFilters(prev => ({ ...prev, year: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Cualquier año" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Cualquier año</SelectItem>
-                    {years.map(year => (
-                      <SelectItem key={year} value={year.toString()}>
-                        {year}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Género */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Género</label>
-                <Select
-                  value={filters.genre}
-                  onValueChange={(value) => setFilters(prev => ({ ...prev, genre: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Cualquier género" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Cualquier género</SelectItem>
-                    {genres.map(genre => (
-                      <SelectItem key={genre.id} value={genre.id.toString()}>
-                        {genre.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Rating mínimo */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Rating Mínimo</label>
-                <Select
-                  value={filters.minRating}
-                  onValueChange={(value) => setFilters(prev => ({ ...prev, minRating: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Cualquier rating" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ratingOptions.map(option => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Ordenar por */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Ordenar por</label>
-                <Select
-                  value={filters.sortBy}
-                  onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value }))}
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {sortOptions.map(option => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+      <Card>
+        <CardHeader>
+          <div className="flex items-center gap-2 mb-2">
+            <Filter className="h-5 w-5 text-primary" />
+            <CardTitle className="text-lg">Filtros Avanzados</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Año */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Año</label>
+              <Select
+                value={filters.year}
+                onValueChange={(value) => setFilters(prev => ({ ...prev, year: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Cualquier año" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Cualquier año</SelectItem>
+                  {years.map(year => (
+                    <SelectItem key={year} value={year.toString()}>
+                      {year}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
 
-            <div className="flex gap-2 pt-4 border-t">
-              <Button onClick={applyFilters} className="flex-1">
-                Aplicar Filtros
-              </Button>
-              <Button variant="outline" onClick={clearFilters}>
-                Limpiar
-              </Button>
+            {/* Género */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Género</label>
+              <Select
+                value={filters.genre}
+                onValueChange={(value) => setFilters(prev => ({ ...prev, genre: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Cualquier género" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Cualquier género</SelectItem>
+                  {genres.map(genre => (
+                    <SelectItem key={genre.id} value={genre.id.toString()}>
+                      {genre.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-          </CardContent>
-        </Card>
-      )}
+
+            {/* Rating mínimo */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Rating Mínimo</label>
+              <Select
+                value={filters.minRating}
+                onValueChange={(value) => setFilters(prev => ({ ...prev, minRating: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Cualquier rating" />
+                </SelectTrigger>
+                <SelectContent>
+                  {ratingOptions.map(option => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Ordenar por */}
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Ordenar por</label>
+              <Select
+                value={filters.sortBy}
+                onValueChange={(value) => setFilters(prev => ({ ...prev, sortBy: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortOptions.map(option => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="flex gap-2 pt-4 border-t">
+            <Button onClick={applyFilters} className="flex-1">
+              Aplicar Filtros
+            </Button>
+            <Button variant="outline" onClick={clearFilters}>
+              Limpiar
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Active filters display */}
       {hasActiveFilters && (
         <div className="flex flex-wrap gap-2">
-          {filters.year && (
+          {filters.year && filters.year !== 'all' && (
             <Badge variant="secondary" className="gap-1">
               Año: {filters.year}
               <button
-                onClick={() => setFilters(prev => ({ ...prev, year: '' }))}
+                onClick={() => setFilters(prev => ({ ...prev, year: 'all' }))}
                 className="ml-1 hover:bg-secondary-foreground/20 rounded-full p-0.5"
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
-          {filters.genre && (
+          {filters.genre && filters.genre !== 'all' && (
             <Badge variant="secondary" className="gap-1">
               Género: {genres.find(g => g.id.toString() === filters.genre)?.name}
               <button
-                onClick={() => setFilters(prev => ({ ...prev, genre: '' }))}
+                onClick={() => setFilters(prev => ({ ...prev, genre: 'all' }))}
                 className="ml-1 hover:bg-secondary-foreground/20 rounded-full p-0.5"
               >
                 <X className="h-3 w-3" />
               </button>
             </Badge>
           )}
-          {filters.minRating && (
+          {filters.minRating && filters.minRating !== 'all' && (
             <Badge variant="secondary" className="gap-1">
               Rating: {filters.minRating}+ estrellas
               <button
-                onClick={() => setFilters(prev => ({ ...prev, minRating: '' }))}
+                onClick={() => setFilters(prev => ({ ...prev, minRating: 'all' }))}
                 className="ml-1 hover:bg-secondary-foreground/20 rounded-full p-0.5"
               >
                 <X className="h-3 w-3" />

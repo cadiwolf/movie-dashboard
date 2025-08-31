@@ -1,9 +1,10 @@
 "use client";
 
-import { Heart } from 'lucide-react';
+import { Heart, HeartOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Movie } from '@/lib/types';
 import { useFavorites } from '@/hooks/use-favorites';
+import { showToast } from '@/components/ui/toast';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
 
@@ -31,7 +32,7 @@ export function FavoriteButton({
         variant={variant} 
         size={size} 
         disabled
-        className={cn("glass", className)}
+        className={cn("transition-all duration-300", className)}
       >
         <Heart className={cn(
           size === 'sm' && 'h-3 w-3',
@@ -46,13 +47,34 @@ export function FavoriteButton({
   }
 
   const isMovieFavorite = isFavorite(movie.id);
+  console.log(`FavoriteButton for ${movie.title}: isMovieFavorite=${isMovieFavorite}`);
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
     setIsAnimating(true);
+    const wasAlreadyFavorite = isMovieFavorite;
+    
+    // Actualizar inmediatamente
     toggleFavorite(movie);
+    
+    // Show toast notification inmediatamente
+    if (wasAlreadyFavorite) {
+      showToast({
+        message: `"${movie.title}" quitado de favoritos`,
+        type: 'info',
+        icon: <HeartOff className="w-4 h-4" />,
+        duration: 2000
+      });
+    } else {
+      showToast({
+        message: `"${movie.title}" agregado a favoritos`,
+        type: 'success',
+        icon: <Heart className="w-4 h-4 fill-current" />,
+        duration: 2000
+      });
+    }
     
     // Reset animation after it completes
     setTimeout(() => setIsAnimating(false), 300);
@@ -64,10 +86,10 @@ export function FavoriteButton({
       size={size}
       onClick={handleClick}
       className={cn(
-        "relative overflow-hidden glass transition-all duration-300 group",
+        "relative overflow-hidden transition-all duration-300 group",
         "hover:scale-110 active:scale-95",
-        isMovieFavorite && "text-red-500 hover:text-red-600 shadow-lg shadow-red-500/20",
-        !isMovieFavorite && "hover:text-primary hover:shadow-lg hover:shadow-primary/20",
+        isMovieFavorite && "text-red-500 hover:text-red-600 shadow-md hover:shadow-lg",
+        !isMovieFavorite && "hover:text-primary hover:shadow-md",
         isAnimating && "animate-pulse",
         className
       )}
@@ -75,10 +97,10 @@ export function FavoriteButton({
     >
       {/* Animated background effect */}
       <div className={cn(
-        "absolute inset-0 bg-gradient-to-r transition-opacity duration-300",
+        "absolute inset-0 bg-gradient-to-r transition-opacity duration-300 rounded-md",
         isMovieFavorite 
-          ? "from-red-500/20 to-pink-500/20 opacity-100" 
-          : "from-primary/20 to-emerald-500/20 opacity-0 group-hover:opacity-100"
+          ? "from-red-500/10 to-pink-500/10 opacity-100" 
+          : "from-primary/10 to-emerald-500/10 opacity-0 group-hover:opacity-100"
       )} />
       
       <Heart 
@@ -100,9 +122,14 @@ export function FavoriteButton({
         </span>
       )}
       
-      {/* Ripple effect */}
-      {isAnimating && (
-        <div className="absolute inset-0 bg-white/20 rounded-full animate-ping" />
+      {/* Success ripple effect */}
+      {isAnimating && isMovieFavorite && (
+        <div className="absolute inset-0 bg-red-500/20 rounded-md animate-ping" />
+      )}
+      
+      {/* Add ripple effect */}
+      {isAnimating && !isMovieFavorite && (
+        <div className="absolute inset-0 bg-primary/20 rounded-md animate-ping" />
       )}
     </Button>
   );

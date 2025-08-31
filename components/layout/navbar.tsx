@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { SearchBar } from '@/components/search';
 import { ThemeToggle } from './theme-toggle';
-import { Heart, Search, Menu, X, Zap, Database, Monitor } from 'lucide-react';
+import { Heart, Search, Menu, X, Film } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useFavorites } from '@/hooks/use-favorites';
@@ -14,7 +14,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { favorites } = useFavorites();
+  const { favoritesCount, isLoaded } = useFavorites();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -26,64 +26,44 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { href: '/', label: 'MATRIZ', icon: Database, active: pathname === '/' },
-    { href: '/search', label: 'SCAN', icon: Search, active: pathname === '/search' },
-    { href: '/favorites', label: 'ARCHIVE', icon: Heart, active: pathname === '/favorites' },
+    { href: '/', label: 'Inicio', active: pathname === '/' },
+    { href: '/search', label: 'Buscar', active: pathname === '/search' },
+    { href: '/favorites', label: 'Favoritos', active: pathname === '/favorites' },
   ];
 
   return (
-    <nav className={`fixed top-0 z-50 w-full transition-all duration-500 ${
+    <nav className={`fixed top-0 z-50 w-full transition-all duration-300 ${
       isScrolled 
-        ? 'glass-neon border-b border-primary/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)]' 
-        : 'holographic-card border-b border-primary/20'
+        ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm' 
+        : 'bg-background/80 backdrop-blur-sm border-b border-border/50'
     }`}>
-      {/* Cyber Grid Background */}
-      <div className="absolute inset-0 cyber-grid opacity-5"></div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          {/* Cyber Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/30 blur-md rounded-full animate-pulse"></div>
-              <Monitor className="h-7 w-7 text-primary transition-all duration-300 group-hover:scale-110 group-hover:text-neon-cyan relative z-10 animate-glow" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-lg gradient-text font-mono">CINE</span>
-              <span className="text-xs text-muted-foreground font-mono -mt-1">MATRIX_V2.0</span>
-            </div>
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2 group">
+            <Film className="h-6 w-6 text-primary transition-colors duration-200 group-hover:text-primary/80" />
+            <span className="font-semibold text-xl">MovieDash</span>
           </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => {
-              const IconComponent = link.icon;
-              return (
-                <Link 
-                  key={link.href}
-                  href={link.href} 
-                  className={`relative group px-4 py-2 text-sm font-mono font-medium rounded-lg transition-all duration-300 hover:scale-105 ${
-                    link.active 
-                      ? 'text-neon glass-neon border border-primary/50 animate-neon-pulse' 
-                      : 'text-muted-foreground hover:text-neon-cyan hover:glass-neon'
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    <IconComponent className="w-4 h-4" />
-                    <span>{link.label}</span>
-                  </div>
-                  {link.active && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent animate-glow" />
-                  )}
-                  {/* Hover effect */}
-                  <div className="absolute inset-0 bg-primary/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </Link>
-              );
-            })}
+            {navLinks.map((link) => (
+              <Link 
+                key={link.href}
+                href={link.href} 
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
+                  link.active 
+                    ? 'text-primary bg-primary/10' 
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
           
           {/* Right side controls */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
             {/* Desktop Search */}
             <div className="hidden lg:block">
               <SearchBar />
@@ -93,94 +73,79 @@ export function Navbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden button-glow glass-neon"
+              className="lg:hidden"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
             >
-              <Search className="h-4 w-4 text-neon-cyan" />
+              <Search className="h-4 w-4" />
             </Button>
             
-            {/* Cyber Favorites Archive */}
+            {/* Favorites */}
             <Link href="/favorites">
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative button-glow glass-neon hover:scale-110 transition-all duration-300"
+                className="relative hover:bg-muted/50 transition-colors duration-200"
               >
-                <Heart className={`h-4 w-4 transition-colors duration-300 ${
+                <Heart className={`h-4 w-4 transition-colors duration-200 ${
                   pathname === '/favorites' 
-                    ? 'fill-current text-neon-pink animate-pulse' 
-                    : 'text-muted-foreground hover:text-neon-pink'
+                    ? 'fill-current text-primary' 
+                    : 'text-muted-foreground hover:text-foreground'
                 }`} />
-                {favorites.length > 0 && (
+                {isLoaded && favoritesCount > 0 && (
                   <Badge 
                     variant="destructive" 
-                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs animate-neon-pulse bg-neon-pink border-0 font-mono"
+                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
                   >
-                    {favorites.length}
+                    {favoritesCount > 99 ? '99+' : favoritesCount}
                   </Badge>
                 )}
-                {/* Data indicator */}
-                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-neon-cyan rounded-full animate-pulse"></div>
               </Button>
             </Link>
             
             <ThemeToggle />
             
-            {/* Mobile Cyber Menu Toggle */}
+            {/* Mobile Menu Toggle */}
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden button-glow glass-neon"
+              className="md:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? 
-                <X className="h-4 w-4 text-neon-pink" /> : 
-                <Menu className="h-4 w-4 text-neon-cyan" />
+                <X className="h-4 w-4" /> : 
+                <Menu className="h-4 w-4" />
               }
             </Button>
           </div>
         </div>
         
-        {/* Mobile Cyber Search */}
+        {/* Mobile Search */}
         {isSearchOpen && (
-          <div className="pb-4 lg:hidden animate-slide-in-up glass-neon rounded-lg m-4 p-4">
-            <div className="flex items-center space-x-2 mb-2">
-              <div className="w-2 h-2 bg-neon-cyan rounded-full animate-pulse"></div>
-              <span className="text-xs font-mono text-muted-foreground">ESCÁNER ACTIVO</span>
+          <div className="pb-4 lg:hidden">
+            <div className="bg-muted/50 rounded-lg p-4">
+              <SearchBar />
             </div>
-            <SearchBar />
           </div>
         )}
         
-        {/* Mobile Cyber Menu */}
+        {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden border-t border-primary/30 holographic-card animate-slide-in-up">
-            <div className="px-4 pt-4 pb-6 space-y-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <Zap className="w-4 h-4 text-neon-yellow animate-pulse" />
-                <span className="text-sm font-mono text-muted-foreground">MENÚ DE NAVEGACIÓN</span>
-              </div>
-              {navLinks.map((link) => {
-                const IconComponent = link.icon;
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={`flex items-center space-x-3 px-4 py-3 text-base font-mono font-medium rounded-lg transition-all duration-300 ${
-                      link.active
-                        ? 'text-neon glass-neon border border-primary/50 animate-neon-pulse'
-                        : 'text-muted-foreground hover:text-neon-cyan hover:glass-neon'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    <IconComponent className="w-4 h-4" />
-                    <span>{link.label}</span>
-                    {link.active && (
-                      <div className="ml-auto w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                    )}
-                  </Link>
-                );
-              })}
+          <div className="md:hidden border-t border-border">
+            <div className="py-4 space-y-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`block px-4 py-2 text-base font-medium rounded-md transition-colors duration-200 ${
+                    link.active
+                      ? 'text-primary bg-primary/10'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
         )}

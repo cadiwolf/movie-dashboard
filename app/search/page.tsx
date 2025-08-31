@@ -35,7 +35,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
   return (
     <ErrorBoundary>
-      <div className="container mx-auto px-4 py-8 space-y-8 animate-fade-in">
+      <div className="container mx-auto px-4 py-8 pt-24 space-y-8 animate-fade-in">
         {/* Header with search */}
         <div className="space-y-4 text-center lg:text-left">
           <div className="flex items-center gap-3 justify-center lg:justify-start">
@@ -55,15 +55,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         </div>
 
         {/* Advanced Filters */}
-        <div className="glass rounded-lg p-6">
-          <div className="flex items-center gap-2 mb-4">
-            <Filter className="h-5 w-5 text-primary" />
-            <h2 className="text-lg font-semibold">Filtros Avanzados</h2>
-          </div>
-          <Suspense fallback={<div className="text-center text-muted-foreground">Cargando filtros...</div>}>
-            <AdvancedFiltersSection />
-          </Suspense>
-        </div>
+        <Suspense fallback={<div className="text-center text-muted-foreground">Cargando filtros...</div>}>
+          <AdvancedFiltersSection />
+        </Suspense>
 
         {/* Results */}
         {query ? (
