@@ -212,3 +212,178 @@ Desarrollar una aplicación web que permita explorar películas utilizando la AP
 
 **Tiempo estimado total de evaluación: 12 horas**
 - Proyecto práctico: 12 horas máximo
+=======
+# Movies Dashboard 🎬
+
+Una aplicación web moderna para explorar películas utilizando The Movie Database (TMDB) API, construida con Next.js 15, TypeScript, Tailwind CSS y shadcn/ui.
+
+## ✨ Características
+
+- **Explorar Películas**: Navega por películas populares, mejor valoradas y próximos estrenos
+- **Búsqueda Avanzada**: Busca películas por título con resultados en tiempo real
+- **Filtros por Género**: Filtra películas por categorías específicas
+- **Detalles Completos**: Información detallada de cada película incluyendo reparto, tráiler y películas similares
+- **Diseño Responsivo**: Optimizado para dispositivos móviles y desktop
+- **Modo Oscuro/Claro**: Soporte completo para temas
+- **SEO Optimizado**: Metadatos dinámicos para cada película
+
+## 🚀 Tecnologías
+
+- **Frontend**: Next.js 15 (App Router), React 19, TypeScript
+- **Estilos**: Tailwind CSS v4, shadcn/ui
+- **API**: The Movie Database (TMDB) API
+- **Iconos**: Lucide React
+- **Despliegue**: Vercel Ready
+
+## 📋 Requisitos Previos
+
+- Node.js 18.17 o superior
+- npm, yarn o pnpm
+- Cuenta en [TMDB](https://www.themoviedb.org/) para obtener API key
+
+## 🛠️ Configuración
+
+### 1. Clonar el repositorio
+
+\`\`\`bash
+git clone <tu-repositorio>
+cd movies-dashboard
+\`\`\`
+
+### 2. Instalar dependencias
+
+\`\`\`bash
+npm install
+# o
+yarn install
+# o
+pnpm install
+\`\`\`
+
+### 3. Configurar variables de entorno
+
+1. Crea un archivo \`.env.local\` en la raíz del proyecto
+2. Obtén tu API key de TMDB:
+   - Ve a [TMDB](https://www.themoviedb.org/)
+   - Crea una cuenta o inicia sesión
+   - Ve a tu perfil > Configuración > API
+   - Solicita una API key (es gratuita)
+3. Agrega tu API key al archivo \`.env.local\`:
+
+\`\`\`env
+NEXT_PUBLIC_TMDB_API_KEY=tu_api_key_aqui
+\`\`\`
+
+### 4. Ejecutar en desarrollo
+
+\`\`\`bash
+npm run dev
+# o
+yarn dev
+# o
+pnpm dev
+\`\`\`
+
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
+
+## 📁 Estructura del Proyecto
+
+\`\`\`
+movies-dashboard/
+├── app/                          # App Router de Next.js 15
+│   ├── globals.css              # Estilos globales
+│   ├── layout.tsx               # Layout principal
+│   ├── page.tsx                 # Página de inicio
+│   ├── movie/
+│   │   └── [id]/
+│   │       ├── page.tsx         # Página de detalle de película
+│   │       └── not-found.tsx    # Página 404 personalizada
+│   └── search/
+│       └── page.tsx             # Página de búsqueda
+├── components/                   # Componentes reutilizables
+│   ├── ui/                      # Componentes de shadcn/ui
+│   ├── movie-card.tsx           # Tarjeta de película
+│   ├── movies-grid.tsx          # Grid de películas
+│   ├── search-bar.tsx           # Barra de búsqueda
+│   ├── navbar.tsx               # Navegación
+│   ├── theme-toggle.tsx         # Selector de tema
+│   └── loading-skeletons.tsx    # Estados de carga
+├── lib/                         # Utilidades y configuración
+│   ├── types.ts                 # Tipos TypeScript
+│   ├── tmdb.ts                  # API de TMDB
+│   └── utils.ts                 # Utilidades generales
+└── public/                      # Archivos estáticos
+    └── placeholder-movie.svg    # Imagen placeholder
+\`\`\`
+
+## 🎯 Páginas Principales
+
+### Página Principal (\`/\`)
+- Lista de películas populares
+- Filtros por género
+- Navegación paginada
+- Búsqueda rápida
+
+### Detalle de Película (\`/movie/[id]\`)
+- Información completa de la película
+- Reparto principal
+- Tráiler embebido (YouTube)
+- Películas similares
+- Metadatos SEO dinámicos
+
+### Búsqueda (\`/search\`)
+- Resultados de búsqueda en tiempo real
+- Filtros avanzados
+- Paginación de resultados
+- Estados de error y carga
+
+## 🔧 Comandos Disponibles
+
+\`\`\`bash
+# Desarrollo
+npm run dev          # Inicia el servidor de desarrollo
+
+# Producción
+npm run build        # Construye la aplicación para producción
+npm run start        # Inicia el servidor de producción
+
+# Código
+npm run lint         # Ejecuta ESLint
+\`\`\`
+
+## 🚀 Despliegue en Vercel
+
+1. Haz push de tu código a GitHub
+2. Conecta tu repositorio con Vercel
+3. Agrega la variable de entorno \`NEXT_PUBLIC_TMDB_API_KEY\` en la configuración de Vercel
+4. ¡Despliega!
+
+## 🌟 Características Técnicas
+
+- **Server Components**: Para mejor rendimiento y SEO
+- **Client Components**: Para interactividad del usuario
+- **Suspense Boundaries**: Para estados de carga elegantes
+- **Error Boundaries**: Manejo robusto de errores
+- **Image Optimization**: Imágenes optimizadas de Next.js
+- **TypeScript**: Tipado estricto para mejor desarrollo
+- **Responsive Design**: Mobile-first approach
+- **Accessibility**: Componentes accesibles con shadcn/ui
+
+## 🤝 Contribuir
+
+1. Haz fork del proyecto
+2. Crea una rama para tu feature (\`git checkout -b feature/AmazingFeature\`)
+3. Commit tus cambios (\`git commit -m 'Add some AmazingFeature'\`)
+4. Push a la rama (\`git push origin feature/AmazingFeature\`)
+5. Abre un Pull Request
+
+## 📝 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ve el archivo [LICENSE](LICENSE) para más detalles.
+
+## 🙏 Reconocimientos
+
+- [The Movie Database (TMDB)](https://www.themoviedb.org/) por la increíble API
+- [Next.js](https://nextjs.org/) por el framework
+- [shadcn/ui](https://ui.shadcn.com/) por los componentes hermosos
+- [Vercel](https://vercel.com/) por el hosting gratuito

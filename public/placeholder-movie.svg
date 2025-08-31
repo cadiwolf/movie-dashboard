@@ -1,0 +1,12 @@
+<!-- Placeholder image for movies without poster -->
+<svg width="300" height="450" viewBox="0 0 300 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="450" fill="#f3f4f6"/>
+  <g transform="translate(150, 225)">
+    <circle r="40" fill="#9ca3af"/>
+    <path d="M-20 -10 L20 -10 L20 10 L-20 10 Z" fill="white"/>
+    <path d="M-10 -20 L10 -20 L10 20 L-10 20 Z" fill="white"/>
+  </g>
+  <text x="150" y="350" text-anchor="middle" fill="#6b7280" font-family="Arial, sans-serif" font-size="16">
+    Sin imagen
+  </text>
+</svg>
