@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, HeartOff } from 'lucide-react';
+import { Heart, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Movie } from '@/lib/types';
 import { useFavorites } from '@/hooks/use-favorites';
@@ -64,7 +64,7 @@ export function FavoriteButton({
       showToast({
         message: `"${movie.title}" quitado de favoritos`,
         type: 'info',
-        icon: <HeartOff className="w-4 h-4" />,
+        icon: <X className="w-4 h-4" />,
         duration: 2000
       });
     } else {

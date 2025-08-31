@@ -1,7 +1,7 @@
 "use client";
 
 import { useFavorites } from '@/hooks/use-favorites';
-import { Heart, Star, Calendar, TrendingUp } from 'lucide-react';
+import { Heart, Star, Calendar } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
 

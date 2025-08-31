@@ -2,8 +2,6 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Genre } from '@/lib/types';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 
 interface GenreFilterProps {
   genres: Genre[];

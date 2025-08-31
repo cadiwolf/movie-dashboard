@@ -8,7 +8,7 @@ import { MovieGridSkeleton } from '@/components/ui/loading';
 import { GenreFilter } from '@/components/genre-filter';
 import { MoviesPagination } from '@/components/movies-pagination';
 import { FavoritesStats } from '@/components/favorites-stats';
-import { Star, Film, Play, Heart, Search } from 'lucide-react';
+import { Star, Film, Play, Search } from 'lucide-react';
 import Link from 'next/link';
 import { Movie, Genre } from '@/lib/types';
 

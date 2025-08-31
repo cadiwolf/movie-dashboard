@@ -6,7 +6,7 @@ import { Movie } from '@/lib/types';
 import { getImageUrl } from '@/lib/tmdb';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Star, Calendar, TrendingUp, Zap, Database } from 'lucide-react';
+import { Star, Calendar, Database } from 'lucide-react';
 import { FavoriteButton } from '@/components/favorite-button';
 
 interface MovieCardProps {

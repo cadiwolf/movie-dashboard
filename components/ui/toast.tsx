@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { CheckCircle, X, Heart, HeartOff } from 'lucide-react';
+import { CheckCircle, X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface ToastProps {
@@ -108,8 +108,8 @@ export function ToastContainer() {
       setToasts(prev => [...prev, newToast]);
     };
 
-    window.addEventListener('show-toast' as any, handleToast);
-    return () => window.removeEventListener('show-toast' as any, handleToast);
+    window.addEventListener('show-toast', handleToast as EventListener);
+    return () => window.removeEventListener('show-toast', handleToast as EventListener);
   }, []);
 
   return (

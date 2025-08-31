@@ -5,7 +5,7 @@ import { MoviesGrid } from '@/components/movies-grid';
 import { LoadingSkeleton } from '@/components/ui/loading';
 import { SearchBar, AdvancedFilters, SearchPagination } from '@/components/search';
 import { ErrorBoundary } from '@/components/error-boundary';
-import { Search, Filter } from 'lucide-react';
+import { Search } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Buscar Películas | Movies Dashboard',
