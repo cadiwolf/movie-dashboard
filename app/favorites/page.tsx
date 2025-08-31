@@ -4,6 +4,7 @@ import { useFavorites } from '@/hooks/use-favorites';
 import { MoviesGrid } from '@/components/movies-grid';
 import { Button } from '@/components/ui/button';
 import { Heart, Trash2 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function FavoritesPage() {
   const { favorites, clearFavorites, isLoaded, favoritesCount } = useFavorites();
@@ -44,7 +45,7 @@ export default function FavoritesPage() {
               Explora películas y haz clic en el corazón para agregarlas a tus favoritos
             </p>
             <Button asChild>
-              <a href="/">Explorar Películas</a>
+              <Link href="/">Explorar Películas</Link>
             </Button>
           </div>
         </div>

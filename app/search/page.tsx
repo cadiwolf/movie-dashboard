@@ -142,7 +142,7 @@ async function SearchResults({
             No se encontraron resultados
           </h2>
           <p className="text-muted-foreground">
-            No se encontraron películas para "{query}". Intenta con otros términos de búsqueda.
+            No se encontraron películas para &quot;{query}&quot;. Intenta con otros términos de búsqueda.
           </p>
         </div>
       );
@@ -152,7 +152,7 @@ async function SearchResults({
       <div className="space-y-8">
         <div>
           <h2 className="text-2xl font-bold mb-2">
-            Resultados para "{query}"
+            Resultados para &quot;{query}&quot;
           </h2>
           <p className="text-muted-foreground">
             {searchResults.total_results.toLocaleString()} resultados encontrados

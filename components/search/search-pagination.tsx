@@ -58,7 +58,7 @@ export function SearchPagination({ currentPage, totalPages, totalResults, query 
     <div className="flex flex-col items-center space-y-4">
       {/* Info */}
       <p className="text-sm text-muted-foreground">
-        Página {currentPage} de {totalPages} para "{query}" ({totalResults.toLocaleString()} resultados)
+        Página {currentPage} de {totalPages} para &quot;{query}&quot; ({totalResults.toLocaleString()} resultados)
       </p>
 
       {/* Pagination */}

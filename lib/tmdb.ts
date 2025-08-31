@@ -121,7 +121,7 @@ export async function searchMoviesAdvanced(params: {
     searchParams.query = encodeURIComponent(params.query);
     searchParams.page = params.page?.toString() || '1';
     
-    let results = await fetchFromTMDB('/search/movie', searchParams);
+    const results = await fetchFromTMDB('/search/movie', searchParams);
     
     // Aplicar filtros adicionales si es necesario
     if (params.year || params.genre || params.minRating) {

@@ -59,6 +59,7 @@ export function MovieCard({ movie, priority = false }: MovieCardProps) {
                   className="glass-neon text-xs font-mono animate-neon-pulse"
                 >
                   {year || 'UNKNOWN'}
+                </Badge>
                 <FavoriteButton movie={movie} size="sm" />
               </div>
               
@@ -132,17 +133,6 @@ export function MovieCard({ movie, priority = false }: MovieCardProps) {
             <span className="text-xs font-mono text-muted-foreground">
               ID: {movie.id}
             </span>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-          </div>
-          
-          {/* Mobile favorite button */}
-          <div className="md:hidden pt-1">
-            <FavoriteButton movie={movie} size="sm" />
           </div>
         </div>
       </CardContent>

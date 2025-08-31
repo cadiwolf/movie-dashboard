@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { SearchBar } from '@/components/search';
 import { ThemeToggle } from './theme-toggle';
-import { Film, Heart, Search, Menu, X, Zap, Database, Monitor } from 'lucide-react';
+import { Heart, Search, Menu, X, Zap, Database, Monitor } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useFavorites } from '@/hooks/use-favorites';
